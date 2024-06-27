@@ -149,7 +149,7 @@ Training/evaluation in progress, we are adding the results as we get them.
 | Movies  | Heater | cold-start| all-mpnet-base-v2                   |0.2433|0.3869| 0.2698|
 | Movies  | Heater | cold-start| nomic-embed-text-v1.5               |0.2244|0.3609| 0.2593|
 | Movies  | Heater | cold-start| bge-m3                              |0.2130|0.3325| 0.2494|
-| Movies  | Heater | cold-start| goodbooks-mpnet-base-v2             |      |      |       |
+| Movies  | Heater | cold-start| goodbooks-mpnet-base-v2             |0.3317|0.4773| 0.3368|
 | Movies  | Heater | cold-start| movielens-mpnet-base-v2             |0.4180|0.5544| 0.3954|
 | Movies  | Heater | cold-start| goodlens-mpnet-base-v2              |      |      |       |
 
