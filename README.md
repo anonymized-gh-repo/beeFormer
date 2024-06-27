@@ -13,6 +13,7 @@ Collaborative filtering methods can capture patterns from interaction data that 
   - added scripts to download movielens and goodbooks datasets
   - added the description of the LLM-generating procedure
   - added tables with results
+  - better organized results for datasets with LLM-generated side information
 
 ## Steps to start training the models:
 
@@ -122,32 +123,35 @@ We share the resulting LLM-generated item descriptions in `datasets/ml20m` and `
 
 Training/evaluation in progress, we are adding the results as we get them.
 
-| Dataset  Scenario | Sentence Transformer                | R@20 | R@50 | N@100 |
-|-------------------|-------------------------------------|:----:|:----:|:-----:|
-| Books  CBF        | all-mpnet-base-v2                   |0.1124|0.1948| 0.1822|
-| Books  CBF        | nomic-embed-text-v1.5               |0.1298|0.2225| 0.2164|
-| Books  CBF        | bge-m3                              |0.1237|0.2050| 0.1963|
-| Books  CBF        | movielens-mpnet-base-v2 (zero-shot) |0.1708|0.2644| 0.2622|
-| Books  CBF        | goodbooks-mpnet-base-v2             |0.2512|0.3871| 0.3804|
-| Books  CBF        | goodlens-mpnet-base-v2              |      |      |       |
-| Books  Heater     | all-mpnet-base-v2                   |      |      |       |
-| Books  Heater     | nomic-embed-text-v1.5               |      |      |       |
-| Books  Heater     | bge-m3                              |      |      |       |
-| Books  Heater     | movielens-mpnet-base-v2             |      |      |       |
-| Books  Heater     | goodbooks-mpnet-base-v2             |      |      |       |
-| Books  Heater     | goodlens-mpnet-base-v2              |      |      |       |
-| Movies  CBF       | all-mpnet-base-v2                   |0.1664|0.2697| 0.1676|
-| Movies  CBF       | nomic-embed-text-v1.5               |0.1167|0.2181| 0.1411|
-| Movies  CBF       | bge-m3                              |0.1311|0.2339| 0.1506|
-| Movies  CBF       | movielens-mpnet-base-v2             |0.4120|0.5626| 0.4010|
-| Movies  CBF       | goodbooks-mpnet-base-v2 (zero-shot) |0.3052|0.4281| 0.2882|
-| Movies  CBF       | goodlens-mpnet-base-v2              |      |      |       |
-| Movies  Heater    | all-mpnet-base-v2                   |      |      |       |
-| Movies  Heater    | nomic-embed-text-v1.5               |      |      |       |
-| Movies  Heater    | bge-m3                              |      |      |       |
-| Movies  Heater    | movielens-mpnet-base-v2             |      |      |       |
-| Movies  Heater    | goodbooks-mpnet-base-v2             |      |      |       |
-| Movies  Heater    | goodlens-mpnet-base-v2              |      |      |       |
+| Dataset | Method | Scenario  | Sentence Transformer                | R@20 | R@50 | N@100 |
+|---------|--------|-----------|-------------------------------------|:----:|:----:|:-----:|
+| Books   | CBF    | zero-shot | all-mpnet-base-v2                   |0.1124|0.1948| 0.1822|
+| Books   | CBF    | zero-shot | nomic-embed-text-v1.5               |0.1298|0.2225| 0.2164|
+| Books   | CBF    | zero-shot | bge-m3                              |0.1237|0.2050| 0.1963|
+| Books   | CBF    | zero-shot | movielens-mpnet-base-v2             |0.1708|0.2644| 0.2622|
+| | | | | | | |
+| Books   | CBF    | cold-start| goodbooks-mpnet-base-v2             |0.2512|0.3871| 0.3804|
+| Books   | CBF    | cold-start| goodlens-mpnet-base-v2              |      |      |       |
+| Books   | Heater | cold-start| all-mpnet-base-v2                   |0.2194|0.3266| 0.3263|
+| Books   | Heater | cold-start| nomic-embed-text-v1.5               |0.2193|0.3334| 0.3257|
+| Books   | Heater | cold-start| bge-m3                              |0.2262|0.3291| 0.3276|
+| Books   | Heater | cold-start| movielens-mpnet-base-v2             |0.2169|0.3172| 0.3287|
+| Books   | Heater | cold-start| goodbooks-mpnet-base-v2             |0.2565|0.3836| 0.3725|
+| Books   | Heater | cold-start| goodlens-mpnet-base-v2              |      |      |       |
+| | | | | | | |
+| Movies  | CBF    | zero-shot | all-mpnet-base-v2                   |0.1664|0.2697| 0.1676|
+| Movies  | CBF    | zero-shot | nomic-embed-text-v1.5               |0.1167|0.2181| 0.1411|
+| Movies  | CBF    | zero-shot | bge-m3                              |0.1311|0.2339| 0.1506|
+| Movies  | CBF    | zero-shot | goodbooks-mpnet-base-v2             |0.3052|0.4281| 0.2882|
+| | | | | | | |
+| Movies  | CBF    | cold-start| movielens-mpnet-base-v2             |0.4120|0.5626| 0.4010|
+| Movies  | CBF    | cold-start| goodlens-mpnet-base-v2              |      |      |       |
+| Movies  | Heater | cold-start| all-mpnet-base-v2                   |0.2433|0.3869| 0.2698|
+| Movies  | Heater | cold-start| nomic-embed-text-v1.5               |0.2244|0.3609| 0.2593|
+| Movies  | Heater | cold-start| bge-m3                              |0.2130|0.3325| 0.2494|
+| Movies  | Heater | cold-start| goodbooks-mpnet-base-v2             |      |      |       |
+| Movies  | Heater | cold-start| movielens-mpnet-base-v2             |0.4180|0.5544| 0.3954|
+| Movies  | Heater | cold-start| goodlens-mpnet-base-v2              |      |      |       |
 
 ### Results with raw text data collected from various datasets as a side information 
 
@@ -185,5 +189,9 @@ These are original results currently present in the paper.
 TBA
 
 ## Results (timestamp-based splitting)
+
+TBA
+
+## Lessons learned
 
 TBA
