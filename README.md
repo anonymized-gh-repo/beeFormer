@@ -126,7 +126,7 @@ Training/evaluation in progress, we are adding the results as we get them.
 | Dataset | Method | Scenario  | Sentence Transformer                | R@20 | R@50 | N@100 |
 |---------|--------|-----------|-------------------------------------|:----:|:----:|:-----:|
 | Books   | CBF    | zero-shot | all-mpnet-base-v2                   |0.1124|0.1948| 0.1822|
-| Books   | CBF    | zero-shot | nomic-embed-text-v1.5               |0.1298|0.2225| 0.2164|
+| Books   | CBF    | zero-shot | nomic-embed-text-v1.5               |_0.1298_|_0.2225_| _0.2164_|
 | Books   | CBF    | zero-shot | bge-m3                              |0.1237|0.2050| 0.1963|
 | Books   | CBF    | zero-shot | movielens-mpnet-base-v2             |**0.1708**|**0.2644**| **0.2622**|
 | | | | | | | |
@@ -139,7 +139,7 @@ Training/evaluation in progress, we are adding the results as we get them.
 | Books   | Heater | cold-start| goodbooks-mpnet-base-v2             |0.2565|0.3836| 0.3725|
 | Books   | Heater | cold-start| goodlens-mpnet-base-v2              |      |      |       |
 | | | | | | | |
-| Movies  | CBF    | zero-shot | all-mpnet-base-v2                   |0.1664|0.2697| 0.1676|
+| Movies  | CBF    | zero-shot | all-mpnet-base-v2                   |_0.1664_|_0.2697_| _0.1676_|
 | Movies  | CBF    | zero-shot | nomic-embed-text-v1.5               |0.1167|0.2181| 0.1411|
 | Movies  | CBF    | zero-shot | bge-m3                              |0.1311|0.2339| 0.1506|
 | Movies  | CBF    | zero-shot | goodbooks-mpnet-base-v2             |**0.3052**|**0.4281**| **0.2882**|
