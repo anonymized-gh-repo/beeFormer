@@ -133,7 +133,7 @@ Training/evaluation in progress, we are adding the results as we get them.
 | Books  Heater     | all-mpnet-base-v2                   |      |      |       |
 | Books  Heater     | nomic-embed-text-v1.5               |      |      |       |
 | Books  Heater     | bge-m3                              |      |      |       |
-| Books  Heater     | movielens-mpnet-base-v2 (zero-shot) |      |      |       |
+| Books  Heater     | movielens-mpnet-base-v2             |      |      |       |
 | Books  Heater     | goodbooks-mpnet-base-v2             |      |      |       |
 | Books  Heater     | goodlens-mpnet-base-v2              |      |      |       |
 | Movies  CBF       | all-mpnet-base-v2                   |0.1664|0.2697| 0.1676|
@@ -146,7 +146,7 @@ Training/evaluation in progress, we are adding the results as we get them.
 | Movies  Heater    | nomic-embed-text-v1.5               |      |      |       |
 | Movies  Heater    | bge-m3                              |      |      |       |
 | Movies  Heater    | movielens-mpnet-base-v2             |      |      |       |
-| Movies  Heater    | goodbooks-mpnet-base-v2 (zero-shot) |      |      |       |
+| Movies  Heater    | goodbooks-mpnet-base-v2             |      |      |       |
 | Movies  Heater    | goodlens-mpnet-base-v2              |      |      |       |
 
 ### Results with raw text data collected from various datasets as a side information 
