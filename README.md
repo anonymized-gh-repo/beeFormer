@@ -128,7 +128,7 @@ Training/evaluation in progress, we are adding the results as we get them.
 | Books   | CBF    | zero-shot | all-mpnet-base-v2                   |0.1124|0.1948| 0.1822|
 | Books   | CBF    | zero-shot | nomic-embed-text-v1.5               |0.1298|0.2225| 0.2164|
 | Books   | CBF    | zero-shot | bge-m3                              |0.1237|0.2050| 0.1963|
-| Books   | CBF    | zero-shot | movielens-mpnet-base-v2             |0.1708|0.2644| 0.2622|
+| Books   | CBF    | zero-shot | movielens-mpnet-base-v2             |**0.1708**|**0.2644**| **0.2622**|
 | | | | | | | |
 | Books   | CBF    | cold-start| goodbooks-mpnet-base-v2             |0.2512|0.3871| 0.3804|
 | Books   | CBF    | cold-start| goodlens-mpnet-base-v2              |      |      |       |
@@ -142,7 +142,7 @@ Training/evaluation in progress, we are adding the results as we get them.
 | Movies  | CBF    | zero-shot | all-mpnet-base-v2                   |0.1664|0.2697| 0.1676|
 | Movies  | CBF    | zero-shot | nomic-embed-text-v1.5               |0.1167|0.2181| 0.1411|
 | Movies  | CBF    | zero-shot | bge-m3                              |0.1311|0.2339| 0.1506|
-| Movies  | CBF    | zero-shot | goodbooks-mpnet-base-v2             |0.3052|0.4281| 0.2882|
+| Movies  | CBF    | zero-shot | goodbooks-mpnet-base-v2             |**0.3052**|**0.4281**| **0.2882**|
 | | | | | | | |
 | Movies  | CBF    | cold-start| movielens-mpnet-base-v2             |0.4120|0.5626| 0.4010|
 | Movies  | CBF    | cold-start| goodlens-mpnet-base-v2              |      |      |       |
@@ -193,5 +193,9 @@ TBA
 TBA
 
 ## Lessons learned
+
+TBA
+
+## Acknowledgments
 
 TBA
