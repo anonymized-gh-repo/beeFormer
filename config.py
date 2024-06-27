@@ -18,13 +18,12 @@ config = {
             "num_test_users": 10000,
             "random_state": 42,
             "load_previous_splits": False,
-            "items_raw_data": """pd.read_json("datasets/ml20m/items_with_storylines.json")""",
-            "items_item_id_name": "itemid",
-            "items_preprocess": """f'{row.product_name}: {row.storyline}'""",
+            "items_raw_data": """pd.read_feather("datasets/ml20m/item_text_descriptions.feather")""",
+            "items_item_id_name": "movieId",
+            "items_preprocess": """f'{row.llama_description}'""",
             "coldstart_fraction": 0.1,
             "num_coldstart_items": 2000,
-            "image_embeddings": """pd.read_feather("datasets/ml20m/image_embeddings.feather")""",
-            "items_features": """pd.read_feather("datasets/ml20m/items_features.feather")""",
+
         }
     ),
     "goodbooks":
@@ -42,9 +41,9 @@ config = {
             "num_test_users": 2500,
             "random_state": 42,
             "load_previous_splits": False,
-            "items_raw_data": """pd.read_json("datasets/goodbooks/items_with_storylines.json")""",
+            "items_raw_data": """pd.read_json("datasets/goodbooks/item_text_descriptions.json")""",
             "items_item_id_name": "book_id",
-            "items_preprocess": """f'{row.title}: {row.storyline}'""",
+            "items_preprocess": """f'{row.llama_description}'""",
             "coldstart_fraction": 0.1,
             "num_coldstart_items": 2000,
         }
