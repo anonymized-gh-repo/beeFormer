@@ -14,6 +14,7 @@ Collaborative filtering (CF) methods can capture patterns from interaction data 
   - added the description of the LLM-generating procedure
   - added tables with results
   - better organized results for datasets with LLM-generated side information
+
 28.6.20204:
   - cold-start evaluation (item-based splitting) of models using LLM-generated side information finished
 
