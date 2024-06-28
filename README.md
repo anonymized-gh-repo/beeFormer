@@ -132,9 +132,9 @@ Training/evaluation in progress, we are adding the results as we get them.
 | | | | | | | |
 | Books   | CBF    | cold-start| goodbooks-mpnet-base-v2             |0.2512|0.3871| 0.3804|
 | Books   | CBF    | cold-start| goodlens-mpnet-base-v2              |**0.2758**|**0.4237**| **0.3997**|
-| Books   | Heater | cold-start| all-mpnet-base-v2                   |0.2194|0.3266| 0.3263|
-| Books   | Heater | cold-start| nomic-embed-text-v1.5               |0.2193|0.3334| 0.3257|
-| Books   | Heater | cold-start| bge-m3                              |0.2262|0.3291| 0.3276|
+| Books   | Heater | cold-start| all-mpnet-base-v2                   |0.2194|0.3266| _0.3263_|
+| Books   | Heater | cold-start| nomic-embed-text-v1.5               |0.2193|_0.3334_| 0.3257|
+| Books   | Heater | cold-start| bge-m3                              |_0.2262_|0.3291| 0.3276|
 | Books   | Heater | cold-start| movielens-mpnet-base-v2             |0.2169|0.3172| 0.3287|
 | Books   | Heater | cold-start| goodbooks-mpnet-base-v2             |0.2565|0.3836| 0.3725|
 | Books   | Heater | cold-start| goodlens-mpnet-base-v2              |0.2667|0.3946| 0.3846|
@@ -146,7 +146,7 @@ Training/evaluation in progress, we are adding the results as we get them.
 | | | | | | | |
 | Movies  | CBF    | cold-start| movielens-mpnet-base-v2             |0.4120|**0.5626**| **0.4010**|
 | Movies  | CBF    | cold-start| goodlens-mpnet-base-v2              |0.3777|0.5434| 0.3910|
-| Movies  | Heater | cold-start| all-mpnet-base-v2                   |0.2433|0.3869| 0.2698|
+| Movies  | Heater | cold-start| all-mpnet-base-v2                   |_0.2433_|_0.3869_| _0.2698_|
 | Movies  | Heater | cold-start| nomic-embed-text-v1.5               |0.2244|0.3609| 0.2593|
 | Movies  | Heater | cold-start| bge-m3                              |0.2130|0.3325| 0.2494|
 | Movies  | Heater | cold-start| goodbooks-mpnet-base-v2             |0.3317|0.4773| 0.3368|
