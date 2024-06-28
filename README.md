@@ -4,7 +4,7 @@ This is the official implementation provided with our paper "beeFormer: Bridging
 
 ## main idea of beeFormer
 
-Collaborative filtering methods can capture patterns from interaction data that are not obvious at first sight. For example, when buying a printer, users can also buy toners, papers, or cables to connect the printer, and collaborative filtering can take such patterns into account. However, in the cold-start recommendation setup, where new items do not have any interaction at all, collaborative filtering methods cannot be used, and recommender systems are forced to use other approaches, like content-based filtering. The problem with content-based filtering is that it relies on item attributes, such as text descriptions. In our printer example, semantic similarity-trained language models will put other printers closer than accessories that users might be searching for. Our method is training language models to learn these user behavior patterns from interaction data to transfer that knowledge to previously unseen items. Our experiments show that performance benefits from this approach are enormous.
+Collaborative filtering (CF) methods can capture patterns from interaction data that are not obvious at first sight. For example, when buying a printer, users can also buy toners, papers, or cables to connect the printer, and collaborative filtering can take such patterns into account. However, in the cold-start recommendation setup, where new items do not have any interaction at all, collaborative filtering methods cannot be used, and recommender systems are forced to use other approaches, like content-based filtering (CBF). The problem with content-based filtering is that it relies on item attributes, such as text descriptions. In our printer example, semantic similarity-trained language models will put other printers closer than accessories that users might be searching for. Our method is training language models to learn these user behavior patterns from interaction data to transfer that knowledge to previously unseen items. Our experiments show that performance benefits from this approach are enormous.
 
 ## updates
 
@@ -14,6 +14,8 @@ Collaborative filtering methods can capture patterns from interaction data that 
   - added the description of the LLM-generating procedure
   - added tables with results
   - better organized results for datasets with LLM-generated side information
+28.6.20204:
+  - cold-start evaluation (item-based splitting) of models using LLM-generated side information finished
 
 ## Steps to start training the models:
 
@@ -65,7 +67,7 @@ We used hyperparameters for training our models as follows.
 | sbert            | original sentence transformer model used as an initial model for training                                            | sentence-transformers/all-mpnet-base-v2 | sentence-transformers/all-mpnet-base-v2 | sentence-transformers/all-mpnet-base-v2 |
 | max_seq_length   | limitation of sequence length; shorter sequences trains faster original mpnet model uses max 512 tokens in. sequence | 384                                     | 256                                     | 384                                     |
 | batch_size       | number of users sampled in random batch from interaction matrix                                                      | 2048                                    | 1024                                    | 1024                                    |
-| max_output       | negative sampling hyperparameter (_m_ in the paper)                                                                  | 7500                                    | 10000                                   | 10000                                   |
+| max_output       | negative sampling hyperparameter (_m_ in the paper). Negatives are sampled uniformly at random.                          | 7500                                    | 10000                                   | 10000                                   |
 | sbert_batch_size | number of items processed together during training step (gradient accumulation step size)                            | 200                                     | 250                                     | 200                                     |
 
 ## LLM Data augmentations
@@ -119,43 +121,53 @@ We share the resulting LLM-generated item descriptions in `datasets/ml20m` and `
 
 ## Results (item-based splitting)
 
+To demonstrate the capability of models to generalize towards new items without any interactions, we split the data item-wise. We randomly select 2000 items as a test set, and we use the rest of the items to train our model and select the hyperparameters.
+
 ### Results with Llama-3-8b-instruct generated items description as a side information
 
-Training/evaluation in progress, we are adding the results as we get them.
+R stands for Recall, N for NDCG. Names of our models trained with beeFormer are in italic, the best-performing models are represented in bold.
 
 | Dataset | Method | Scenario  | Sentence Transformer                | R@20 | R@50 | N@100 |
 |---------|--------|-----------|-------------------------------------|:----:|:----:|:-----:|
 | Books   | CBF    | zero-shot | all-mpnet-base-v2                   |0.1124|0.1948| 0.1822|
-| Books   | CBF    | zero-shot | nomic-embed-text-v1.5               |_0.1298_|_0.2225_| _0.2164_|
+| Books   | CBF    | zero-shot | nomic-embed-text-v1.5               |0.1298|0.2225| 0.2164|
 | Books   | CBF    | zero-shot | bge-m3                              |0.1237|0.2050| 0.1963|
-| Books   | CBF    | zero-shot | movielens-mpnet-base-v2             |**0.1708**|**0.2644**| **0.2622**|
+| Books   | CBF    | zero-shot | _movielens-mpnet-base-v2_*             |**0.1708**|**0.2644**| **0.2622**|
 | | | | | | | |
-| Books   | CBF    | cold-start| goodbooks-mpnet-base-v2             |0.2512|0.3871| 0.3804|
-| Books   | CBF    | cold-start| goodlens-mpnet-base-v2              |**0.2758**|**0.4237**| **0.3997**|
-| Books   | Heater | cold-start| all-mpnet-base-v2                   |0.2194|0.3266| _0.3263_|
-| Books   | Heater | cold-start| nomic-embed-text-v1.5               |0.2193|_0.3334_| 0.3257|
-| Books   | Heater | cold-start| bge-m3                              |_0.2262_|0.3291| 0.3276|
-| Books   | Heater | cold-start| movielens-mpnet-base-v2             |0.2169|0.3172| 0.3287|
-| Books   | Heater | cold-start| goodbooks-mpnet-base-v2             |0.2565|0.3836| 0.3725|
-| Books   | Heater | cold-start| goodlens-mpnet-base-v2              |0.2667|0.3946| 0.3846|
+| Books   | CBF    | cold-start| _goodbooks-mpnet-base-v2_             |0.2512|0.3871| 0.3804|
+| Books   | CBF    | cold-start| _goodlens-mpnet-base-v2_              |**0.2758**|**0.4237**| **0.3997**|
+| Books   | Heater | cold-start| all-mpnet-base-v2                   |0.2194|0.3266| 0.3263|
+| Books   | Heater | cold-start| nomic-embed-text-v1.5               |0.2193|0.3334| 0.3257|
+| Books   | Heater | cold-start| bge-m3                              |0.2262|0.3291| 0.3276|
+| Books   | Heater | cold-start| _movielens-mpnet-base-v2_             |0.2169|0.3172| 0.3287|
+| Books   | Heater | cold-start| _goodbooks-mpnet-base-v2_             |0.2565|0.3836| 0.3725|
+| Books   | Heater | cold-start| _goodlens-mpnet-base-v2_              |0.2667|0.3946| 0.3846|
 | | | | | | | |
-| Movies  | CBF    | zero-shot | all-mpnet-base-v2                   |_0.1664_|_0.2697_| _0.1676_|
+| Movies  | CBF    | zero-shot | all-mpnet-base-v2                   |0.1664|0.2697| 0.1676|
 | Movies  | CBF    | zero-shot | nomic-embed-text-v1.5               |0.1167|0.2181| 0.1411|
 | Movies  | CBF    | zero-shot | bge-m3                              |0.1311|0.2339| 0.1506|
-| Movies  | CBF    | zero-shot | goodbooks-mpnet-base-v2             |**0.3052**|**0.4281**| **0.2882**|
+| Movies  | CBF    | zero-shot | _goodbooks-mpnet-base-v2_**             |**0.3052**|**0.4281**| **0.2882**|
 | | | | | | | |
-| Movies  | CBF    | cold-start| movielens-mpnet-base-v2             |0.4120|**0.5626**| **0.4010**|
-| Movies  | CBF    | cold-start| goodlens-mpnet-base-v2              |0.3777|0.5434| 0.3910|
-| Movies  | Heater | cold-start| all-mpnet-base-v2                   |_0.2433_|_0.3869_| _0.2698_|
+| Movies  | CBF    | cold-start| _movielens-mpnet-base-v2_             |0.4120|**0.5626**| **0.4010**|
+| Movies  | CBF    | cold-start| _goodlens-mpnet-base-v2_              |0.3777|0.5434| 0.3910|
+| Movies  | Heater | cold-start| all-mpnet-base-v2                   |0.2433|0.3869| 0.2698|
 | Movies  | Heater | cold-start| nomic-embed-text-v1.5               |0.2244|0.3609| 0.2593|
 | Movies  | Heater | cold-start| bge-m3                              |0.2130|0.3325| 0.2494|
-| Movies  | Heater | cold-start| goodbooks-mpnet-base-v2             |0.3317|0.4773| 0.3368|
-| Movies  | Heater | cold-start| movielens-mpnet-base-v2             |**0.4180**|0.5544| 0.3954|
-| Movies  | Heater | cold-start| goodlens-mpnet-base-v2              |0.3882|0.5428| 0.3930|
+| Movies  | Heater | cold-start| _goodbooks-mpnet-base-v2_             |0.3317|0.4773| 0.3368|
+| Movies  | Heater | cold-start| _movielens-mpnet-base-v2_             |**0.4180**|0.5544| 0.3954|
+| Movies  | Heater | cold-start| _goodlens-mpnet-base-v2_              |0.3882|0.5428| 0.3930|
+
+**_*_**  Please note, that movielens-mpnet-base-v2 was trained without using any information from the GoodBooks-10k dataset. Therefore, evaluating the model on the GoodBooks-10k dataset falls under the zero-shot scenario and is fair to other models that weren't trained on the GoodBooks-10k dataset either.
+
+**_\*\*_**  Please note, that goodbooks-mpnet-base-v2 was trained without using any information from the MovieLens-20M dataset. Therefore, evaluating the model on the MovieLens-20M dataset falls under the zero-shot scenario and is fair to other models that weren't trained on the MovieLens-20M dataset either.
+
+**CBF** We produce recommendations using the cosine similarities between items based on the item embeddings produced directly by the sentence-transformer model.
+
+**Heater** is a cold-start model, that learns the transformation function between text embeddings and CF representations. We use ALS MF as a CF model underneath the Heater model, which we reimplemented in Keras with PyTorch backend.
 
 ### Results with raw text data collected from various datasets as a side information 
 
-These are original results currently present in the paper.
+These are the original results currently present in the paper.
 
 | Dataset  Scenario | Sentence Transformer                |  R@20  |  R@50  |  N@100 |
 |-------------------|-------------------------------------|:------:|:------:|:------:|
